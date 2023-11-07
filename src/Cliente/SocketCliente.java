@@ -22,16 +22,18 @@ public class SocketCliente {
 
 		try (Scanner sc = new Scanner(System.in); Socket socketAlServidor = new Socket()) {
 
-				
+			System.out.println("CLIENTE: Introduzca que te apetece hacer");
+
+			System.out.println("Menú:");
+			System.out.println("1. Sumar");
+			System.out.println("2. Restar");
+			System.out.println("3. Multiplicar");
+			System.out.println("4. Dividir");
+			System.out.println("5. Salir");
+			System.out.print("Seleccione una opción: ");
 			
 			
-			
-			
-			
-			
-			
-			
-			
+
 		} catch (UnknownHostException e) {
 			System.err.println("CLIENTE: No encuentro el servidor en la dirección" + IP_SERVER);
 			e.printStackTrace();
