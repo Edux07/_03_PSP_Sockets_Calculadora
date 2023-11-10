@@ -21,6 +21,7 @@ public class SocketCliente {
 		InetSocketAddress direccionServercalcu = new InetSocketAddress(IP_SERVER, PUERTO);
 
 		try (Socket SocketAlServer = new Socket(); Scanner sc = new Scanner(System.in)) {
+			SocketAlServer.connect(direccionServercalcu);
 
 			while (true) {
 				System.out.println("Operaciones disponibles:");
@@ -44,7 +45,6 @@ public class SocketCliente {
 					double numero2 = Double.parseDouble(sc.nextLine());
 
 					System.out.println("CLIENTE: Esperando a que el servidor acepte la conexión");
-					SocketAlServer.connect(direccionServercalcu);
 					System.out.println("CLIENTE: Conexion establecida... a " + IP_SERVER + " por el puerto " + PUERTO);
 
 					PrintStream salida = new PrintStream(SocketAlServer.getOutputStream());
