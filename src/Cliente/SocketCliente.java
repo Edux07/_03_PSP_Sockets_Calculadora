@@ -24,13 +24,14 @@ public class SocketCliente {
 			SocketAlServer.connect(direccionServercalcu);
 
 			while (true) {
+				System.out.println("Bienvenido a la calculadora de Sockets:");
 				System.out.println("Operaciones disponibles:");
 				System.out.println("1. Sumar");
 				System.out.println("2. Restar");
 				System.out.println("3. Multiplicar");
 				System.out.println("4. Dividir");
 				System.out.println("5. Salir");
-				System.out.print("Seleccione una opción: ");
+				System.out.print("Seleccione una opcion: ");
 
 				String opcion = sc.nextLine();
 
@@ -44,7 +45,7 @@ public class SocketCliente {
 					System.out.print("Ingrese el segundo número: ");
 					double numero2 = Double.parseDouble(sc.nextLine());
 
-					System.out.println("CLIENTE: Esperando a que el servidor acepte la conexión");
+					System.out.println("CLIENTE: Esperando a que el servidor acepte la conexion");
 					System.out.println("CLIENTE: Conexion establecida... a " + IP_SERVER + " por el puerto " + PUERTO);
 
 					PrintStream salida = new PrintStream(SocketAlServer.getOutputStream());
@@ -59,7 +60,7 @@ public class SocketCliente {
 				System.out.println("CLIENTE: Esperando al resultado del servidor...");
 				String resultado = bf.readLine();
 
-				System.out.println("CLIENTE: El resultado de la suma es:" + resultado);
+				System.out.println("CLIENTE: El resultado de la operacion es:" + resultado);
 			}
 
 		} catch (UnknownHostException e) {
