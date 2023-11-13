@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 
@@ -14,7 +15,7 @@ public class SocketCliente {
 	public static final int PUERTO = 2068;
 	public static final String IP_SERVER = "Localhost";
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SocketException{
 		System.out.println("        CALCULADORA         ");
 		System.out.println("----------------------------");
 
@@ -24,6 +25,7 @@ public class SocketCliente {
 			SocketAlServer.connect(direccionServercalcu);
 
 			while (true) {
+				
 				System.out.println("Bienvenido a la calculadora de Sockets:");
 				System.out.println("Operaciones disponibles:");
 				System.out.println("1. Sumar");
@@ -34,10 +36,13 @@ public class SocketCliente {
 				System.out.print("Seleccione una opcion: ");
 
 				String opcion = sc.nextLine();
-
+				
+				PrintStream salida = new PrintStream(SocketAlServer.getOutputStream());
 				if (opcion.equals("5")) {
-					System.out.println("Saliendo del cliente.");
-					break;
+					System.out.println("La aplicacion se cierra");
+					salida.println("5");
+					System.exit(0);
+					
 
 				} else if (opcion.equals("1") || opcion.equals("2") || opcion.equals("3") || opcion.equals("4")) {
 					System.out.print("Ingrese el primer número: ");
@@ -48,7 +53,7 @@ public class SocketCliente {
 					System.out.println("CLIENTE: Esperando a que el servidor acepte la conexion");
 					System.out.println("CLIENTE: Conexion establecida... a " + IP_SERVER + " por el puerto " + PUERTO);
 
-					PrintStream salida = new PrintStream(SocketAlServer.getOutputStream());
+					
 					salida.println(opcion);
 					salida.println(Double.toString(numero1));
 					salida.println(Double.toString(numero2));

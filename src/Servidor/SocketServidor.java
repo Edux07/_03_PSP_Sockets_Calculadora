@@ -8,10 +8,11 @@ import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+
 public class SocketServidor {
 	public static final int PUERTO = 2068;
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws InterruptedException{
 
 		System.out.println("      SERVIDOR      ");
 		System.out.println("--------------------");
@@ -25,11 +26,18 @@ public class SocketServidor {
 		try (ServerSocket serverSocket = new ServerSocket()) {
 			serverSocket.bind(direccion);
 			int peticion = 0;
+			socketAlCliente = serverSocket.accept();
 
 			while (true) {
+				
+				 
+				if (socketAlCliente.isClosed()) {
+					socketAlCliente = serverSocket.accept();
+
+				}else {			
+					
 				System.out.println("SERVIDOR: Esperando peticion por el puerto " + PUERTO);
 
-				socketAlCliente = serverSocket.accept();
 				System.out.println("SERVIDOR: peticion numero " + ++peticion + " recibida");
 
 				entrada = new InputStreamReader(socketAlCliente.getInputStream());
@@ -41,7 +49,8 @@ public class SocketServidor {
 
 				if(opcion.equals("5")) {
 					System.out.println("La aplicacion se cierra");
-					break;
+					socketAlCliente.close();
+					
 				}else if (opcion.equals("1") || opcion.equals("2") || opcion.equals("3") || opcion.equals("4")) { 
                     double numero1 = Double.parseDouble(bf.readLine());
                     double numero2 = Double.parseDouble(bf.readLine());
@@ -64,8 +73,12 @@ public class SocketServidor {
 				}
 				
 				
-				socketAlCliente.close();
+				
 			}
+
+				
+			}
+
 
 		} catch (IOException e) {
 			System.err.println("SERVIDOR: Error de entrada/salida");
